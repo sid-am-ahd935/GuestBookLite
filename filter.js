@@ -11,24 +11,10 @@ const {
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: MODEL_NAME });
-// const chat = model.startChat({
-//   generationConfig,
-//   safetySettings,
-//   history: chat_history,
-// });
 const chat = model.startChat({
     generationConfig,
     safetySettings,
-    history: [
-      {
-        role: "user",
-        parts: [{ text: "hi there"}],
-      },
-      {
-        role: "model",
-        parts: [{ text: "Hi there! 👋  What can I do for you today? 😄"}],
-      },
-    ],
+    history: chat_history,
   });
 
 async function filter(input) {

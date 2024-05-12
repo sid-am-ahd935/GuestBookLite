@@ -6,9 +6,23 @@ const bodyParser = require('body-parser');
 const { filter } = require("./filter");
 
 const app = express();
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.PORT || 3000;
+const host = process.env.SERVER_HOST || 'localhost';
 const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/GuestBook_dev_v1_1';
+const DEBUG = process.env.DEBUG || false;
 
+function print(...args) {
+    if(DEBUG == true) {
+        return;
+    }
+    let str = "";
+    for(let i=0; i<args.length; i++) {
+        str += args[i] + " ";
+    }
+    str.slice(0, -1);
+    str += "\n";
+    process.stdout.write(str);
+}
 
 mongoose.connect(
     mongoURI
@@ -28,7 +42,6 @@ const Note = mongoose.model('Note', NoteSchema);
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
-
 
 // function httpPostRequest(options, postData) {
 //   return new Promise(function(resolve, reject) {
@@ -137,4 +150,4 @@ app.post('/notes', async (req, res) => {
   // }
 });
 
-app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
+app.listen(port, host, () => console.log(`Server listening on port http://${host}:${port}`));

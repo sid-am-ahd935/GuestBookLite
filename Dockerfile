@@ -8,6 +8,4 @@ RUN npm install
 
 COPY . /app/node/
 
-EXPOSE ${SERVER_PORT}
-
 CMD ["npm", "start"]
