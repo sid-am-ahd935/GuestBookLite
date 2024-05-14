@@ -105,12 +105,12 @@ app.post('/notes', async (req, res) => {
     filtered_text = filtered_text.replace(/(\r\n|\n|\r)/gm, "");
   }).then(function() {
     const newNote = new Note({ text: filtered_text });
-    const savedNote = newNote.save();
+    const savedNote = await newNote.save();
     // return "success";
     return savedNote; // makes it wait before exiting
   }).then(function(message) {
     // console.log(`${message}`);
-    return res.status(200).json({message:message}); // so that frontend won't show undefined
+    return res.status(200) ;//.json({message:message}); // so that frontend won't show undefined
   }).catch(function(err) {
     console.error(`[ERROR IN FIILTER RESPONSE]: ${err}`);
     res.status(500).json({ message: 'Server Error' });
