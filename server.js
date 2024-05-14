@@ -103,7 +103,7 @@ app.post('/notes', async (req, res) => {
     filtered_text = filter_response;
     // console.log(`RECEIVED TEXT: ${filtered_text}; TYPE: ${typeof(filtered_text)}`);
     filtered_text = filtered_text.replace(/(\r\n|\n|\r)/gm, "");
-  }).then(function() {
+  }).then(async function() {
     const newNote = new Note({ text: filtered_text });
     const savedNote = await newNote.save();
     // return "success";
