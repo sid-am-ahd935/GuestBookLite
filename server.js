@@ -108,10 +108,11 @@ app.post('/notes', async (req, res) => {
     const newNote = new Note({ text: filtered_text });
     const savedNote = await newNote.save();
     // return "success";
-    return savedNote; // makes it wait before exiting
-  }).then(function(message) {
-    // console.log(`${message}`);
-    return res.status(200).json({message:message}); // so that frontend won't show undefined
+    // return savedNote; // makes it wait before exiting
+      return res.status(200).json({message : "success"});
+  // }).then(function(message) {
+  //   // console.log(`${message}`);
+  //   return res.status(200).json({message:message}); // so that frontend won't show undefined
   }).catch(function(err) {
     console.error(`[ERROR IN FILTER RESPONSE]: ${err}`);
     res.status(500).json({ message: 'Server Error' });
