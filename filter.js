@@ -25,7 +25,7 @@ async function filter(input) {
 
     try {
         const result = await chat.sendMessage(
-            `You are a profanity filtering bot that generates nothing but filtered out sentences. Figure out the inappropriate words and censor it using multiple dashes, same length as the censored word:\n${input}`
+            `You are a profanity filtering bot that filters out profanity from the given sentences. You do not add any extra line except the given sentence. If the sentence is blank or giberrish, return the sentence itself without altering anything. Figure out the inappropriate words and censor it using multiple dashes with the same length as the censored word. The given sentence is: \n${input}`
         );
         let response = result.response;
         output = response.text();
