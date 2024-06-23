@@ -9,10 +9,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const host = process.env.SERVER_HOST || 'localhost';
 const mongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/GuestBook_dev_v1_1';
-const DEBUG = process.env.DEBUG || false;
+const DEBUG = process.env.DEBUG || true;
 
 function print(...args) {
-    if(DEBUG == true) {
+    if(DEBUG == false) {
         return;
     }
     let str = "";
@@ -99,7 +99,7 @@ app.post('/notes', async (req, res) => {
   }
 
   let filtered_text = "";
-  filter(text).then(function(filter_response) {
+  new Promise((resolve) => {resolve(await filter(text))}).then(function(filter_response) {
     filtered_text = filter_response;
     // console.log(`RECEIVED TEXT: ${filtered_text}; TYPE: ${typeof(filtered_text)}`);
     filtered_text = filtered_text.replace(/(\r\n|\n|\r)/gm, "");
@@ -112,7 +112,7 @@ app.post('/notes', async (req, res) => {
     // console.log(`${message}`);
     return res.status(200) ;//.json({message:message}); // so that frontend won't show undefined
   }).catch(function(err) {
-    console.error(`[ERROR IN FIILTER RESPONSE]: ${err}`);
+    console.error(`[ERROR IN FILTER RESPONSE]: ${err}`);
     res.status(500).json({ message: 'Server Error' });
   });
   // try {
