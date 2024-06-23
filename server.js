@@ -99,7 +99,8 @@ app.post('/notes', async (req, res) => {
   }
 
   let filtered_text = "";
-  new Promise((resolve) => {resolve(await filter(text))}).then(function(filter_response) {
+    
+  filter(text).then(function(filter_response) {
     filtered_text = filter_response;
     // console.log(`RECEIVED TEXT: ${filtered_text}; TYPE: ${typeof(filtered_text)}`);
     filtered_text = filtered_text.replace(/(\r\n|\n|\r)/gm, "");
@@ -110,7 +111,7 @@ app.post('/notes', async (req, res) => {
     return savedNote; // makes it wait before exiting
   }).then(function(message) {
     // console.log(`${message}`);
-    return res.status(200) ;//.json({message:message}); // so that frontend won't show undefined
+    return res.status(200).json({message:message}); // so that frontend won't show undefined
   }).catch(function(err) {
     console.error(`[ERROR IN FILTER RESPONSE]: ${err}`);
     res.status(500).json({ message: 'Server Error' });
